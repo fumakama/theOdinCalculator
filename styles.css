@@ -21,16 +21,19 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    flex-grow: 1;
+    flex-grow: 0;
 }
 
 .display {
     border: 1px solid black;
     border-radius: 15px;
+    padding: 20px;
+    text-align: right;
     margin-top: 20px;
     margin-bottom: 30px;
     height: 90px;
     width: 340px;
+    flex-grow: 0;
 }
 
 .line {
