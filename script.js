@@ -20,7 +20,23 @@ const opButtons = document.querySelectorAll('.op');
 let displayLine1 = document.querySelector('#display-line-1');
 let displayLine2 = document.querySelector('#display-line-2');
 let displayOp = document.querySelector('#display-operator');
+const clearButton = document.querySelector('#clear');
+const equalsButton = document.querySelector('#equals');
 
+clearButton.addEventListener('click', clearDisplay);
+equalsButton.addEventListener('click', () => {
+  if ((displayLine1.textContent !== '') &&
+      (displayLine2.textContent !== '') &&
+      (displayOp.textContent !== '')) {
+        const result = calculate(displayLine1.textContent, 
+                                 displayLine2.textContent, 
+                                displayOp.textContent);
+        clearDisplay();
+        displayLine1.textContent = result.toString();
+      }
+});
+
+// Insert numbers in the lines of calculator display
 numberButtons.forEach((button => {
   button.addEventListener('click', (event) => {
     let number = button.textContent;
@@ -32,11 +48,50 @@ numberButtons.forEach((button => {
   });
 }));
 
+// Insert operators in the operator line on display
 opButtons.forEach(button => {
   button.addEventListener('click', event => {
     let operator = button.textContent;
-      if (displayLine2.textContent === '') {
-        displayOp.textContent += operator;
+      if ((displayLine2.textContent === '') && 
+         (displayLine1.textContent !== '')) {
+        if (displayOp.textContent === '') {
+          displayOp.textContent += operator;
+        } else {
+          displayOp.textContent = operator;
+        }
+      } else {
+        const result = calculate(displayLine1.textContent, 
+                                 displayLine2.textContent, 
+                                 displayOp.textContent);
+        clearDisplay();
+        displayLine1.textContent = result.toString();
       }
   });
 });
+
+function calculate(a, b, op) {
+  a = +a;
+  b = +b;
+
+  switch (op) {
+    case "+":
+      return a + b;
+      break;
+    case "-":
+      return a - b;
+      break;
+    case "/":
+      return a / b;
+      break;
+    case "*":
+      return a * b;
+      break;
+  }
+}
+
+function clearDisplay() {
+  displayLine1.textContent = '';
+  displayLine2.textContent = '';
+  displayOp.textContent = '';
+}
+
