@@ -24,6 +24,7 @@ const clearButton = document.querySelector('#clear');
 const equalsButton = document.querySelector('#equals');
 const deleteButton = document.querySelector('#del');
 const dotButton = document.querySelector('#dot');
+const errorMessage = 'Лошара! На ноль делить нельзя!';
 
 
 // Logic for delete button
@@ -57,6 +58,9 @@ equalsButton.addEventListener('click', () => {
 numberButtons.forEach((button => {
   button.addEventListener('click', (event) => {
     let number = button.textContent;
+
+    if (displayLine1.textContent === errorMessage)
+      clearDisplay();
     if (displayOp.textContent === '') {
       displayLine1.textContent += number;
     } else {
@@ -68,6 +72,8 @@ numberButtons.forEach((button => {
 // Point button
 dotButton.addEventListener('click', () => {
   let dot = dotButton.textContent;
+  if (displayLine1.textContent === errorMessage)
+      clearDisplay();
   if (displayOp.textContent === '') {
     if (!displayLine1.textContent.includes('.')) 
       displayLine1.textContent += dot;
@@ -111,7 +117,10 @@ function calculate(a, b, op) {
       return a - b;
       break;
     case "/":
-      return a / b;
+      if (b !== 0)
+        return a / b;
+      else
+        return errorMessage;
       break;
     case "*":
       return a * b;
