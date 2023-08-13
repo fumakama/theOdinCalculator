@@ -22,6 +22,17 @@ let displayLine2 = document.querySelector('#display-line-2');
 let displayOp = document.querySelector('#display-operator');
 const clearButton = document.querySelector('#clear');
 const equalsButton = document.querySelector('#equals');
+const deleteButton = document.querySelector('#del');
+
+deleteButton.addEventListener('click', () => {
+  if (displayOp.textContent !== '') {
+    displayLine2.textContent = displayLine2.textContent.
+    slice(0, displayLine2.textContent.length-1);
+  } else {
+    displayLine1.textContent = displayLine1.textContent.
+    slice(0, displayLine1.textContent.length-1);
+  }
+});
 
 clearButton.addEventListener('click', clearDisplay);
 equalsButton.addEventListener('click', () => {
