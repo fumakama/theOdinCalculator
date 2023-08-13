@@ -23,7 +23,10 @@ let displayOp = document.querySelector('#display-operator');
 const clearButton = document.querySelector('#clear');
 const equalsButton = document.querySelector('#equals');
 const deleteButton = document.querySelector('#del');
+const dotButton = document.querySelector('#dot');
 
+
+// Logic for delete button
 deleteButton.addEventListener('click', () => {
   if (displayOp.textContent !== '') {
     displayLine2.textContent = displayLine2.textContent.
@@ -34,7 +37,10 @@ deleteButton.addEventListener('click', () => {
   }
 });
 
+// Clear button
 clearButton.addEventListener('click', clearDisplay);
+
+// Equals button
 equalsButton.addEventListener('click', () => {
   if ((displayLine1.textContent !== '') &&
       (displayLine2.textContent !== '') &&
@@ -59,6 +65,18 @@ numberButtons.forEach((button => {
   });
 }));
 
+// Point button
+dotButton.addEventListener('click', () => {
+  let dot = dotButton.textContent;
+  if (displayOp.textContent === '') {
+    if (!displayLine1.textContent.includes('.')) 
+      displayLine1.textContent += dot;
+  } else {
+    if (!displayLine2.textContent.includes('.')) 
+      displayLine2.textContent += dot;
+  }
+});
+
 // Insert operators in the operator line on display
 opButtons.forEach(button => {
   button.addEventListener('click', event => {
@@ -76,6 +94,7 @@ opButtons.forEach(button => {
                                  displayOp.textContent);
         clearDisplay();
         displayLine1.textContent = result.toString();
+        displayOp.textContent += operator;
       }
   });
 });
